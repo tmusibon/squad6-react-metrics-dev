@@ -52,5 +52,16 @@ describe("App", () => {
     expect(addButton).toBeInTheDocument();
 
   });
+
+  test("Add deployment test", () => {
+    render(<App />);
+   
+    const datetime = screen.getByRole('deploymenttime');
+    datetime.textContent = '2021-05-06';
+    userEvent.click(screen.getByRole("button", { name: "Add Deployment" }));
+    const deployment = screen.getByRole("deploymentList");
+    expect(deployment).toHaveTextContent('2021-05-06');
+
+  });
 });
     
