@@ -1,24 +1,28 @@
 import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
 
 function App() {
+  const [leadTime, setLeadTime] = useState("0");
+  const [leadTimeText, setLeadTimeText] = useState("From code pushed to code deployed: 9 minutes");
+  
+  function leadTimeInputHandler({target: {value}}) {
+    setLeadTime(value);
+  }
+
+  function leadTimeButtonHandler() {
+    const textPreamble = "From code pushed to code deployed: ";
+    setLeadTimeText(textPreamble.concat(leadTime).concat(" minutes"));
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1>Lead Time</h1>
+      <h3>{leadTimeText}</h3>
+      <p>Change Lead Time (in minutes)</p>
+      <input type="Text" id="leadTimeInput" onChange={leadTimeInputHandler}/> 
+      <button id="leadTimeSubmit" onClick={leadTimeButtonHandler}>Update Lead Time</button>
+    </>
   );
 }
 
