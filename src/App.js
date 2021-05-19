@@ -6,6 +6,7 @@ function App() {
     <>
       <h1>Lead Time</h1>
       <h3>From code pushed to code deployed: 9 minutes</h3>
+      <input type="Text" id="leadTime"/> 
       <button id="leadTimeSubmit">Submit</button>
     </>
   );

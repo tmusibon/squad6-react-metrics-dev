@@ -22,4 +22,11 @@ describe("App", () => {
 
     expect(addLeadTimeButton).toBeInTheDocument();
   });
+  test("Submit button displays on screen", () => {
+    render(<App />);
+    const addLeadTimeInput = screen.getByRole("textbox", {id: "leadTime"});
+
+    expect(addLeadTimeInput).toBeInTheDocument();
+  });
+  
 });
