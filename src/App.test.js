@@ -29,58 +29,14 @@ describe("App", () => {
 
     expect(addLeadTimeInput).toBeInTheDocument();
   });
-  test("Submit a lead time with time 0", () => {
+  test.each(["0", "1", "8", "100"])("Submit a lead time with time %s", (leadTime) => {
     render(<App />);
   
   const status = screen.getByRole("heading", {level: 3 });
   const textbox = screen.getByRole("textbox", {id: "leadTimeInput"});
   const button = screen.getByRole("button" , {id: "leadtimeSubmit"});
-
-  userEvent.type(textbox, "0");
+  userEvent.type(textbox, leadTime);
   userEvent.click(button);
-  expect(status).toHaveTextContent("From code pushed to code deployed: 0 minutes");
-  //userEvent.click
-  //when enter the input we should expect that content to be displayed
-  //enter the input
-  //click the button
-  //check that the input is displayed.
-
-  // Nous avons 3 cases:
-  // le user ecrire un '0' dans le textboite
-  // qu'est que le result de l'input?
-  //<h3>From code pushed to code deployed: 0 minutes</h3>
-
-
-
-
-
-
-  
-  // le user ecrire un '1' dans le textboite
-  // qu'est que le result de l'input?
-  // le user ecrire un '9' dans le textboite
-  // qu'est que le result de l'input?
-  }); 
-  test("Submit a lead time with time 1", () => {
-    render(<App />);
-  
-  const status = screen.getByRole("heading", {level: 3 });
-  const textbox = screen.getByRole("textbox", {id: "leadTimeInput"});
-  const button = screen.getByRole("button" , {id: "leadtimeSubmit"});
-
-  userEvent.type(textbox, "1");
-  userEvent.click(button);
-  expect(status).toHaveTextContent("From code pushed to code deployed: 1 minutes");
+  expect(status).toHaveTextContent("From code pushed to code deployed: ".concat(leadTime).concat(" minutes"));
   });
-  test("Submit a lead time with time 8", () => {
-    render(<App />);
-  
-  const status = screen.getByRole("heading", {level: 3 });
-  const textbox = screen.getByRole("textbox", {id: "leadTimeInput"});
-  const button = screen.getByRole("button" , {id: "leadtimeSubmit"});
-
-  userEvent.type(textbox, "8");
-  userEvent.click(button);
-  expect(status).toHaveTextContent("From code pushed to code deployed: 8 minutes");
-  }); 
 });
