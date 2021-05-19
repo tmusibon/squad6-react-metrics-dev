@@ -4,23 +4,23 @@ import { useState } from 'react';
 
 function App() {
   const [leadTime, setLeadTime] = useState("0");
-  const [leadTimeText, setLeadTimeText] = useState("From code pushed to code deployed: 9 minutes");
-  
+  const [newLeadTime, setNewLeadTime] = useState();
+
   function leadTimeInputHandler({target: {value}}) {
-    setLeadTime(value);
+    setNewLeadTime(value);
   }
 
   function leadTimeButtonHandler() {
-    const textPreamble = "From code pushed to code deployed: ";
-    setLeadTimeText(textPreamble.concat(leadTime).concat(" minutes"));
+    setLeadTime(newLeadTime);
+    setNewLeadTime("");
   }
 
   return (
     <>
       <h1>Lead Time</h1>
-      <h3>{leadTimeText}</h3>
+      <h3 role="status">From code pushed to code deployed: {leadTime} minutes.</h3>
       <p>Change Lead Time (in minutes)</p>
-      <input type="Text" id="leadTimeInput" onChange={leadTimeInputHandler}/> 
+      <input type="text" id="leadTimeInput" onChange={leadTimeInputHandler}/> 
       <button id="leadTimeSubmit" onClick={leadTimeButtonHandler}>Update Lead Time</button>
     </>
   );

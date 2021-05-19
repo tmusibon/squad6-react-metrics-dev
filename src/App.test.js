@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import App from './App';
 
 describe("App", () => {
-  test("Test Lead Time display", () => {
+  test("All elements render correctly", () => {
     render(<App />);
     const heading = screen.getByRole("heading", { level: 1});
 
@@ -12,9 +12,9 @@ describe("App", () => {
 
   test("Code commit to Deploy", () => {
     render(<App />);
-    const heading = screen.getByRole("heading", { level: 3});
+    const status = screen.getByRole("status");
 
-    expect(heading).toHaveTextContent("From code pushed to code deployed: 9 minutes")
+    expect(status).toHaveTextContent("From code pushed to code deployed: 0 minutes")
   });
 
   test("Submit button displays on screen", () => {
@@ -32,7 +32,7 @@ describe("App", () => {
   test.each(["0", "1", "8", "100"])("Submit a lead time with time %s", (leadTime) => {
     render(<App />);
   
-  const status = screen.getByRole("heading", {level: 3 });
+  const status = screen.getByRole("status");
   const textbox = screen.getByRole("textbox", {id: "leadTimeInput"});
   const button = screen.getByRole("button" , {id: "leadtimeSubmit"});
   userEvent.type(textbox, leadTime);
