@@ -8,6 +8,8 @@ describe("App", () => {
 
   test("renders the title", () => {
     render(<App />);
+    debugger;
+
     const heading = screen.getByRole("heading", { level: 2 });
     expect(heading).toHaveTextContent("Software Delivery Performance Metrics");
   });
@@ -36,8 +38,10 @@ describe("App", () => {
    
     //screen.getByRole('deploymenttime'). = tempValue
     const datetime = screen.getByRole('deploymenttime');
-    datetime.textContent = '2021-05-06';
-    expect(datetime).toHaveTextContent('2021-05-06');
+    //datetime.textContent = '2021-05-06';
+    userEvent.type(datetime,'2021-05-06');
+
+    expect(datetime).toHaveValue('2021-05-06');
     //userEvent.click(screen.getByRole("button", { name: "Add Deployment" }));
 
     //expect(status).toHaveTextContent("1");
@@ -57,7 +61,8 @@ describe("App", () => {
     render(<App />);
    
     const datetime = screen.getByRole('deploymenttime');
-    datetime.textContent = '2021-05-06';
+    userEvent.type(datetime,'2021-05-06');
+
     userEvent.click(screen.getByRole("button", { name: "Add Deployment" }));
     const deployment = screen.getByRole("deploymentList");
     expect(deployment).toHaveTextContent('2021-05-06');
