@@ -19,6 +19,7 @@ function App() {
     <>
       <h1>Lead Time</h1>
       <h3>{leadTimeText}</h3>
+      <p>Change Lead Time (in minutes)</p>
       <input type="Text" id="leadTimeInput" onChange={leadTimeInputHandler}/> 
       <button id="leadTimeSubmit" onClick={leadTimeButtonHandler}>Update Lead Time</button>
     </>
