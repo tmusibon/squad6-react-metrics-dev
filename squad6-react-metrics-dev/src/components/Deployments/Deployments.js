@@ -50,7 +50,7 @@ function Deployments() {
             <button 
                 key='addDeployment' 
                 onClick={deploymentHandler} 
-                
+      
                 className='button'>Add Deployment</button>
         </div>
     )
