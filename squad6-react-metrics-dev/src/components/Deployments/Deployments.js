@@ -21,7 +21,8 @@ function Deployments() {
     
       function deploymentHandler(){
       
-        setDeployments(deployments.concat(newInputDate + " " + newInputTime))
+        setDeployments(deployments.concat(newInputDate + " " + newInputTime));
+        
       
       }
       const deploymentItems = deployments.map((item) => (
@@ -49,6 +50,7 @@ function Deployments() {
             <button 
                 key='addDeployment' 
                 onClick={deploymentHandler} 
+                
                 className='button'>Add Deployment</button>
         </div>
     )

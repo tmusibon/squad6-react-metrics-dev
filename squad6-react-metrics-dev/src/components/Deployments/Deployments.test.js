@@ -57,7 +57,7 @@ describe('Deployments', () => {
         const date = screen.getByRole('deploymentdate');
         userEvent.type(date,tempDate);
         
-        const tempTime = "03:26"
+        const tempTime = "13:26"
         const time = screen.getByRole('deploymenttime');
         userEvent.type(time,tempTime);
         
@@ -75,7 +75,7 @@ describe('Deployments', () => {
         const date1 = screen.getByRole('deploymentdate');
         userEvent.type(date1,tempDate1);
         
-        const tempTime1 = "03:26"
+        const tempTime1 = "14:26"
         const time1 = screen.getByRole('deploymenttime');
         userEvent.type(time1,tempTime1);
         
@@ -99,6 +99,13 @@ describe('Deployments', () => {
         expect(deployment.length).toEqual(2);
         expect(deployment[1]).toHaveTextContent(tempDate2 + " " + tempTime2);
 
+    
+      });
+      test("Cannot add deployment with missing date and time", () => {
+        render(<Deployments />);
+
+        expect(screen.getByRole("button", { name: "Add Deployment" })).toHaveAttribute('disabled');
+       
     
       });
 
