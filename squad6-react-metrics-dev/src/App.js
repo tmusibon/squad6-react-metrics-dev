@@ -5,7 +5,12 @@ import Deployments from './components/Deployments/Deployments.js'
 function App() {
   return (
     <React.Fragment>
-      <Deployments />
+      <h1 className='heading-text'>Software Delivery Performance Metrics</h1>
+      <div className ='wrapper'>
+        <div className='deployments'>
+          <Deployments />
+        </div>
+    </div>
    </React.Fragment>
 
   );

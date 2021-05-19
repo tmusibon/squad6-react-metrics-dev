@@ -1,4 +1,5 @@
 import React,{useState} from "react";
+import '../../global.css';
 
 function Deployments() {
     const [deployment, setDeployment] = useState("");
@@ -12,13 +13,12 @@ function Deployments() {
         setDeployment(newInput);
       }
     return(
-        <div>
-            <h2>Software Delivery Performance Metrics</h2>
-            <h1>Deployments</h1>
+        <div className='box-container'>
+            <h2>Deployments</h2>
             <div role='deploymentList'>{deployment}</div>
             <h3>Deployment</h3>
-            <input role="deploymenttime" onChange={inputHandler}/>  
-            <button key='addDeployment' onClick={deploymentHandler}>Add Deployment</button>
+            <input role="deploymenttime" onChange={inputHandler} className='deploymentDate'/>  
+            <button key='addDeployment' onClick={deploymentHandler} className='button'>Add Deployment</button>
         </div>
     )
 }

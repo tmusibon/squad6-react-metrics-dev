@@ -10,7 +10,7 @@ describe("App", () => {
     render(<App />);
     debugger;
 
-    const heading = screen.getByRole("heading", { level: 2 });
+    const heading = screen.getByRole("heading", { level: 1 });
     expect(heading).toHaveTextContent("Software Delivery Performance Metrics");
   });
 });

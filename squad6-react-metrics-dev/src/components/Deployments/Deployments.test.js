@@ -5,7 +5,7 @@ import Deployments from './Deployments.js';
 describe('Deployments', () => {
     test("renders deployment headline", () =>{
         render(<Deployments />);
-        const heading = screen.getByRole("heading", { level: 1});  
+        const heading = screen.getByRole("heading", { level: 2});  
         expect(heading).toHaveTextContent("Deployments");
     });
     
