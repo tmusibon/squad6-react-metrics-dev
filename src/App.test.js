@@ -29,7 +29,7 @@ describe("App", () => {
 
     expect(addLeadTimeInput).toBeInTheDocument();
   });
-  test("Submit the Lead time", () => {
+  test("Submit a lead time with time 0", () => {
     render(<App />);
   
   const status = screen.getByRole("heading", {level: 3 });
@@ -60,5 +60,27 @@ describe("App", () => {
   // qu'est que le result de l'input?
   // le user ecrire un '9' dans le textboite
   // qu'est que le result de l'input?
+  }); 
+  test("Submit a lead time with time 1", () => {
+    render(<App />);
+  
+  const status = screen.getByRole("heading", {level: 3 });
+  const textbox = screen.getByRole("textbox", {id: "leadTimeInput"});
+  const button = screen.getByRole("button" , {id: "leadtimeSubmit"});
+
+  userEvent.type(textbox, "1");
+  userEvent.click(button);
+  expect(status).toHaveTextContent("From code pushed to code deployed: 1 minutes");
+  });
+  test("Submit a lead time with time 8", () => {
+    render(<App />);
+  
+  const status = screen.getByRole("heading", {level: 3 });
+  const textbox = screen.getByRole("textbox", {id: "leadTimeInput"});
+  const button = screen.getByRole("button" , {id: "leadtimeSubmit"});
+
+  userEvent.type(textbox, "8");
+  userEvent.click(button);
+  expect(status).toHaveTextContent("From code pushed to code deployed: 8 minutes");
   }); 
 });
