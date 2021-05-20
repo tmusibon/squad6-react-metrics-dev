@@ -45,9 +45,9 @@ describe('Deployments', () => {
       
   
       userEvent.click(screen.getByRole("button", { name: "Add Deployment" }));
-      const deployment = screen.getAllByRole("deployment");
+      const deployment = screen.getAllByRole("deploymentdate");
       expect(deployment.length).toEqual(1);
-      expect(deployment[0]).toHaveTextContent(tempValue);
+      expect(deployment[0]).toHaveValue(tempValue);
   
     });
 
