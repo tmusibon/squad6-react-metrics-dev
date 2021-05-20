@@ -1,24 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState } from "react";
+import Deployments from "./Deployments/Deployments.js";
+import LeadTimes from "./lead-times/LeadTimes.js";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <h1 className="heading-text">Software Delivery Performance Metrics</h1>
+      <div className="wrapper">
+        <div className="deployments">
+          <LeadTimes />
+          <Deployments />
+        </div>
+      </div>
+    </React.Fragment>
   );
 }
 
