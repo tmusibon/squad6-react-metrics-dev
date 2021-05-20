@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Deployments from './Deployments.js';
 
@@ -99,6 +99,14 @@ describe('Deployments', () => {
         expect(deployment.length).toEqual(2);
         expect(deployment[1]).toHaveTextContent(tempDate2 + " " + tempTime2);
 
+    
+      });
+
+      test("clicking on button makes it disabled", () => {
+        render(<Deployments />);
+        const button = screen.getByRole('button', {name: 'Add Deployment'});
+        fireEvent.click(button);
+        expect(button.disabled).toBeTruthy()
     
       });
 
