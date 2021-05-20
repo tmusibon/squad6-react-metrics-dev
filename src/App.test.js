@@ -1,12 +1,8 @@
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-
 import App from "./App";
 
 describe("App", () => {
-
-
-  test("renders the lead time section", () => {
+  test("renders the title", () => {
     render(<App />);
     const region = screen.getByRole("region", {name: "Lead Times"});
     expect(region).toBeInTheDocument();
@@ -16,4 +12,6 @@ describe("App", () => {
     const region = screen.getByRole("region", {name: "Recovery Times"});
     expect(region).toBeInTheDocument();
   });
+
+  
 });

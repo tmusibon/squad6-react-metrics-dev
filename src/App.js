@@ -2,6 +2,8 @@ import "./App.css";
 import React,{useState} from "react";
 import LeadTimes from './components/LeadTimes.js'
 import RecoveryTimes from './components/RecoveryTime.js'
+import Deployments from "./Deployments/Deployments.js";
+
 
 function App() {
   return (
@@ -11,12 +13,12 @@ function App() {
       <div className ="wrapper">
         <div role="region" title="Lead Times">
           <LeadTimes />
+          <Deployments />
         </div>
         <div role="region" title="Recovery Times"> <RecoveryTimes /> </div>
       </div>
-    </div>
-   </React.Fragment>
-
+    </React.Fragment>
   );
-  }
+}
+
 export default App;
