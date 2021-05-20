@@ -1,13 +1,25 @@
 import React, { useState } from "react";
 import "../global.css";
+import moment from 'moment'
+
 
 function Deployments() {
   const [deployment, setDeployment] = useState("");
   const [newInputDate, setNewInputDate] = useState("");
   const [newInputTime, setNewInputTime] = useState("");
   const [deployments, setDeployments] = useState([]);
+  const [weeklyAverage, setWeeklyAverage] = useState(0);
   //disable the add Deployment button when an input is empty
   const enabled = newInputDate.length > 0 && newInputTime.length > 0;
+
+  React.useEffect(() => {
+    const parsedDeployments = JSON.parse(localStorage.getItem('deployments') || "[]")
+    setDeployments(parsedDeployments)
+  },[])
+
+  React.useEffect(() => {
+    localStorage.setItem('deployments', JSON.stringify(deployments))
+  },[deployments])
 
   const styleEnabled = {
     backgroundColor: "#008CBA" /* blue */,
@@ -22,6 +34,8 @@ function Deployments() {
     marginBottom: "15px",
   };
 
+//const dataStorage = window.localStorage;
+
   function inputHandlerDate({ target: { value } }) {
     setNewInputDate(value);
   }
@@ -30,11 +44,28 @@ function Deployments() {
     setNewInputTime(value);
   }
 
-  function deploymentHandler() {
+  function deploymentHandler(event) {
+    event.preventDefault();
     setDeployments(deployments.concat(newInputDate + " " + newInputTime));
+    calculateDeploymentsWeeklyAverage();
   }
-  const deploymentItems = deployments.map((item) => (
-    <li role="deployment" key={item}>
+
+  function calculateDeploymentsWeeklyAverage(){
+    let deploymentsInLocalStorage = localStorage.getItem('deployments');
+    console.log(deploymentsInLocalStorage);
+    deploymentsInLocalStorage = deploymentsInLocalStorage.replaceAll("[", "").replaceAll("]", "").replaceAll("\"", "").split(',');
+    console.log(deploymentsInLocalStorage);
+    deploymentsInLocalStorage.forEach(deploymentInLocalStorage => {
+      console.log(deploymentInLocalStorage);
+      let tempDate = new Date(deploymentInLocalStorage);
+      let weekNumber = moment(deploymentInLocalStorage).week();
+      console.log(weekNumber + ": " + tempDate)
+    });
+  
+    setWeeklyAverage(1);
+  }
+  const deploymentItems = deployments.map((item, index) => (
+    <li role="status" key={index}>
       {item}
     </li>
   ));
@@ -43,6 +74,9 @@ function Deployments() {
       <h2>Deployments</h2>
       <div role="deploymentList">
         <ol type="1">{deploymentItems}</ol>
+      </div>
+      <div role="region" aria-label="Frequency">
+        Frequency: {weeklyAverage}/week
       </div>
       <h3>Deployment</h3>
       <input
