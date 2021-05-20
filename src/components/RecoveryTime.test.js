@@ -18,11 +18,16 @@ describe("RecoveryTime", () =>{
         expect(heading).toHaveTextContent("MTTR: 67.5 minutes")
 
     });
-    test("Start Time", () =>{
+    test("Recovery times contains the start time input box", () => {
         render(<RecoveryTimes />);
-
-        const heading = screen.getByRole("heading", {level: 3});
-        expect(heading).toHaveTextContent("Start Time")
-
+        
+        const startTimesTextBox = screen.getByRole("textbox", {name: "Start Times"});
+        expect(startTimesTextBox).toBeInTheDocument();
+    });
+    test("Recovery times contains the duration input box", () => {
+        render(<RecoveryTimes />);
+        
+        const startTimesTextBox = screen.getByRole("textbox", {name: "Duration"});
+        expect(startTimesTextBox).toBeInTheDocument();
     });
 });

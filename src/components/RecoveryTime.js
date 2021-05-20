@@ -5,8 +5,8 @@ function RecoveryTimes(){
         <>
         <h1>Recovery Time</h1>
         <h2>MTTR: 67.5 minutes</h2>
-        <h3>Start Time</h3>
-
+        <label>Start Time</label><input type="text" aria-label="Start Times" id="startTimeTextBox"></input>
+        <label>Duration</label><input type="text" aria-label="Duration" id="durationTextBox"></input>
         </>
 );
     }
