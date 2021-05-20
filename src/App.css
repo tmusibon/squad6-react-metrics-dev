@@ -28,6 +28,30 @@
   color: #61dafb;
 }
 
+.wrapper {
+  padding-left: 406px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+.deployments {
+  grid-column: 1 / 2;
+  grid-row: 1;
+}
+
+.heading-text {
+  background-color: gray;
+  line-height: 1.5;
+  font-weight: 300;
+  color: white;
+  padding-left: 10px;
+  text-align: center;
+  margin-left: 100px;
+  width: 87%;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

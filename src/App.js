@@ -1,20 +1,20 @@
 import "./App.css";
-import React,{useState} from "react";
-import LeadTimes from './components/LeadTimes.js'
+import React, { useState } from "react";
+import Deployments from "./deployments/Deployments.js";
+import LeadTimes from "./lead-times/LeadTimes.js";
 
 function App() {
   return (
     <React.Fragment>
-      <div role="main">
-      <h1 id="application-title">Software Delivery Performance Metrics</h1>
-      <div className ="wrapper">
-        <div role="region" id="leadTimes">
+      <h1 className="heading-text">Software Delivery Performance Metrics</h1>
+      <div className="wrapper">
+        <div className="deployments">
           <LeadTimes />
+          <Deployments />
         </div>
       </div>
-    </div>
-   </React.Fragment>
-
+    </React.Fragment>
   );
-  }
+}
+
 export default App;
