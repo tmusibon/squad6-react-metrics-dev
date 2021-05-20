@@ -53,14 +53,7 @@ function Deployments() {
   function calculateDeploymentsWeeklyAverage(){
     let deploymentsInLocalStorage = localStorage.getItem('deployments');
     console.log(deploymentsInLocalStorage);
-    deploymentsInLocalStorage = deploymentsInLocalStorage.replaceAll("[", "").replaceAll("]", "").replaceAll("\"", "").split(',');
-    console.log(deploymentsInLocalStorage);
-    deploymentsInLocalStorage.forEach(deploymentInLocalStorage => {
-      console.log(deploymentInLocalStorage);
-      let tempDate = new Date(deploymentInLocalStorage);
-      let weekNumber = moment(deploymentInLocalStorage).week();
-      console.log(weekNumber + ": " + tempDate)
-    });
+    
   
     setWeeklyAverage(1);
   }
