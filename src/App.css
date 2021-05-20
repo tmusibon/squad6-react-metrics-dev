@@ -34,7 +34,6 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   grid-auto-rows: minmax(100px, auto);
-
 }
 
 .deployments {
@@ -51,7 +50,6 @@
   text-align: center;
   margin-left: 100px;
   width: 87%;
-  ;
 }
 
 @keyframes App-logo-spin {
