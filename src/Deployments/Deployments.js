@@ -3,7 +3,7 @@ import "../global.css";
 import moment from 'moment'
 
 
-function Deployments() {
+function Deployments({init}) {
   const [deployment, setDeployment] = useState("");
   const [newInputDate, setNewInputDate] = useState("");
   const [newInputTime, setNewInputTime] = useState("");
@@ -11,7 +11,11 @@ function Deployments() {
   const [weeklyAverage, setWeeklyAverage] = useState(0);
   //disable the add Deployment button when an input is empty
   const enabled = newInputDate.length > 0 && newInputTime.length > 0;
-
+  
+  if(init){
+    localStorage.setItem('deployments',[]);
+  }
+  
   React.useEffect(() => {
     const parsedDeployments = JSON.parse(localStorage.getItem('deployments') || "[]")
     setDeployments(parsedDeployments)

@@ -9,8 +9,9 @@ function App() {
       <h1 className="heading-text">Software Delivery Performance Metrics</h1>
       <div className="wrapper">
         <div className="deployments">
-          <LeadTimes />
-          <Deployments />
+        <Deployments/>
+         <LeadTimes />
+         
         </div>
       </div>
     </React.Fragment>
