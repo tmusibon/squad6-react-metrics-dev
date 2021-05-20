@@ -24,4 +24,4 @@ function LeadTimes() {
   );
 }
 
-export default App;
+export default LeadTimes;
