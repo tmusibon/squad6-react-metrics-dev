@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function App() {
+function LeadTimes() {
   const [leadTime, setLeadTime] = useState("0");
   const [newLeadTime, setNewLeadTime] = useState();
 
