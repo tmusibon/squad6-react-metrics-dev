@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useState } from "react";
-import Deployments from "./components/Deployments/Deployments.js";
-import LeadTimes from "./components/LeadTimes.js";
+import Deployments from "./deployments/Deployments.js";
+import LeadTimes from "./lead-times/LeadTimes.js";
 
 function App() {
   return (

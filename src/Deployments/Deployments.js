@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../../global.css";
+import "../global.css";
 
 function Deployments() {
   const [deployment, setDeployment] = useState("");

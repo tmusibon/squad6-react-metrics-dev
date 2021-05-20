@@ -103,4 +103,40 @@ describe("Deployments", () => {
     fireEvent.click(button);
     expect(button.disabled).toBeTruthy();
   });
+
+  test("Test deployments visible after refreshing the browser", () => {
+    render(<Deployments />);
+    const tempDate1 = "2021-06-02";
+    const date1 = screen.getByRole("deploymentdate");
+    userEvent.type(date1, tempDate1);
+
+    const tempTime1 = "14:26";
+    const time1 = screen.getByRole("deploymenttime");
+    userEvent.type(time1, tempTime1);
+
+    userEvent.click(screen.getByRole("button", { name: "Add Deployment" }));
+    let deployment = screen.getAllByRole("deployment");
+    expect(deployment.length).toEqual(1);
+    expect(deployment[0]).toHaveTextContent(tempDate1 + " " + tempTime1);
+
+    const tempDate2 = "2021-06-03";
+    const date2 = screen.getByRole("deploymentdate");
+    userEvent.type(date2, tempDate2);
+
+    const tempTime2 = "05:26";
+    const time2 = screen.getByRole("deploymenttime");
+    userEvent.type(time2, tempTime2);
+
+    userEvent.click(screen.getByRole("button", { name: "Add Deployment" }));
+    deployment = screen.getAllByRole("deployment");
+    expect(deployment.length).toEqual(2);
+    expect(deployment[1]).toHaveTextContent(tempDate2 + " " + tempTime2);
+
+    const { rerender } = render(<Deployments/>)
+    //window.location.reload();
+    rerender(<Deployments />);
+
+    expect(deployment.length).toEqual(2);
+  });
+
 });
