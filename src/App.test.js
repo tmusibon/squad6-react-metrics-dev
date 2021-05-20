@@ -6,11 +6,9 @@ import App from "./App";
 describe("App", () => {
 
 
-  test("renders the title", () => {
+  test("renders the lead time section", () => {
     render(<App />);
-    debugger;
-
-    const heading = screen.getByRole("heading", { level: 1 });
-    expect(heading).toHaveTextContent("Software Delivery Performance Metrics");
+    const region = screen.getByRole("region", {id: "leadTimes"});
+    expect(region).toBeInTheDocument();
   });
 });
