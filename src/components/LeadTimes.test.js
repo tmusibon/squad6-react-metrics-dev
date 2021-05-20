@@ -16,19 +16,7 @@ describe("LeadTimes", () => {
 
     expect(status).toHaveTextContent("From code pushed to code deployed: 0 minutes")
   });
-
-  test("Submit button displays on screen", () => {
-    render(<LeadTimes />);
-    const addLeadTimeButton = screen.getByRole("button", {id: "leadTimeSubmit"});
-
-    expect(addLeadTimeButton).toBeInTheDocument();
-  });
-  test("Input leadTime", () => {
-    render(<LeadTimes />);
-    const addLeadTimeInput = screen.getByRole("textbox", {id: "leadTimeInput"});
-
-    expect(addLeadTimeInput).toBeInTheDocument();
-  });
+  
   test.each(["0", "1", "8", "100"])("Submit a lead time with time %s", (leadTime) => {
     render(<LeadTimes />);
   
