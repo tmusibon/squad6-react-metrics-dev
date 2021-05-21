@@ -30,17 +30,17 @@ describe("RecoveryTime", () =>{
         const startTimesTextBox = screen.getByRole("textbox", {name: "Duration"});
         expect(startTimesTextBox).toBeVisible();
     });
-    test("User submits %s and expects submission shown in the status", () => {
+    test.each([["1969/01/01","9"],["1997/12/19","57"]])("User submits and expects to see it rendered in the status area", ([time, duration]) => {
         render(<RecoveryTimes />);
-        const status = screen.getAllByRole("listitem");
+        const status = screen.getByRole("list", {name: "Recovery Times"});
         const button = screen.getByRole("button", {name: "Add Recovery Time"});
-        const startTimes = screen.getByRole("textbox", {name: "Start Times"});
-        const duration = screen.getByRole("textbox", {name: "Duration"});
-        const userInput = [{userStartTime: "1969/12/12", userDuration: "9"},{userStartTime: "1997/12/19", userDuration: "57"}];
+        const startTimeInput = screen.getByRole("textbox", {name: "Start Times"});
+        const durationInput = screen.getByRole("textbox", {name: "Duration"});
 
-        userEvent.type(startTimes, userInput[0].userStartTime);
-        userEvent.type(duration, userInput[0].duration);
+        userEvent.type(startTimeInput, time);
+        userEvent.type(durationInput, duration);
         userEvent.click(button);
-        expect(status).toHaveTextContent(userInput[0].startTimes);
+        expect(status).toHaveTextContent(time);
+        expect(status).toHaveTextContent(duration);
     });
 });

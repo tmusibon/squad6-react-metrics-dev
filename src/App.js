@@ -1,5 +1,5 @@
 import "./App.css";
-import React,{useState} from "react";
+import React from "react";
 import LeadTimes from './components/LeadTimes.js'
 import RecoveryTimes from './components/RecoveryTime.js'
 import Deployments from "./components/Deployments.js"
