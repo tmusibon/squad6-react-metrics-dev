@@ -1,16 +1,22 @@
 import "./App.css";
-import React, { useState } from "react";
-import Deployments from "./Deployments/Deployments.js";
-import LeadTimes from "./lead-times/LeadTimes.js";
+import React from "react";
+import LeadTimes from './leadtimes/LeadTimes.js'
+import RecoveryTimes from './recoverytimes/RecoveryTime.js'
+import Deployments from "./deployments/Deployments.js"
 
 function App() {
   return (
     <React.Fragment>
-      <h1 className="heading-text">Software Delivery Performance Metrics</h1>
-      <div className="wrapper">
-        <div className="deployments">
-          <LeadTimes />
-          <Deployments />
+      <div role="main">
+        <h1 id="application-title">Software Delivery Performance Metrics</h1>
+        <div className ="wrapper">
+          <div role="region" title="Deployments">
+            <Deployments />
+          </div>
+          <div role="region" title="Lead Times">
+            <LeadTimes />
+          </div>
+          <div role="region" title="Recovery Times"> <RecoveryTimes /> </div>
         </div>
       </div>
     </React.Fragment>
