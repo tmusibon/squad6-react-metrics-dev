@@ -1,8 +1,8 @@
 import "./App.css";
 import React from "react";
-import LeadTimes from './components/LeadTimes.js'
-import RecoveryTimes from './components/RecoveryTime.js'
-import Deployments from "./components/Deployments.js"
+import LeadTimes from './leadtimes/LeadTimes.js'
+import RecoveryTimes from './recoverytimes/RecoveryTime.js'
+import Deployments from "./deployments/Deployments.js"
 
 function App() {
   return (
