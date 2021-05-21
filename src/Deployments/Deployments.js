@@ -25,6 +25,9 @@ function Deployments({init}) {
     localStorage.setItem('deployments', JSON.stringify(deployments))
   },[deployments])
 
+  React.useEffect(() => {
+    calculateDeploymentsWeeklyAverage();
+  });
   const styleEnabled = {
     backgroundColor: "#008CBA" /* blue */,
     border: "2px solid black",
@@ -38,7 +41,6 @@ function Deployments({init}) {
     marginBottom: "15px",
   };
 
-//const dataStorage = window.localStorage;
 
   function inputHandlerDate({ target: { value } }) {
     setNewInputDate(value);
@@ -51,15 +53,36 @@ function Deployments({init}) {
   function deploymentHandler(event) {
     event.preventDefault();
     setDeployments(deployments.concat(newInputDate + " " + newInputTime));
+    localStorage.setItem('deployments', JSON.stringify(deployments))
     calculateDeploymentsWeeklyAverage();
   }
 
   function calculateDeploymentsWeeklyAverage(){
     let deploymentsInLocalStorage = localStorage.getItem('deployments');
-    console.log(deploymentsInLocalStorage);
+    let map = new Map();
+    //Temp fix to fix localstorage with quotes and brackets
     
-  
-    setWeeklyAverage(1);
+    deploymentsInLocalStorage = deploymentsInLocalStorage.replace(/]/g, '').replace(/\[/g, '').replace(/"/g, '');
+    
+    if(deploymentsInLocalStorage && deploymentsInLocalStorage.length > 0){
+    deploymentsInLocalStorage.split(',').forEach(deploymentInLocalStorage => {
+      let tempDate = new Date(deploymentInLocalStorage);
+      let weekNumber = moment(deploymentInLocalStorage).week();
+      if(map.has(weekNumber)){
+        const newWeekNumberValue = map.get(weekNumber) + 1;
+        map.set(weekNumber,newWeekNumberValue);
+      }else{
+        map.set(weekNumber,1);
+      }
+    });
+      let sumOfDeployments = 0;
+      for (let value of map.values()){
+        sumOfDeployments+=value;
+      }      
+      const average = sumOfDeployments/(map.size);
+    
+    setWeeklyAverage(Math.round(average*1000)/1000);
+  }
   }
   const deploymentItems = deployments.map((item, index) => (
     <li role="status" key={index}>

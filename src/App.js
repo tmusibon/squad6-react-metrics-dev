@@ -9,7 +9,7 @@ function App() {
       <h1 className="heading-text">Software Delivery Performance Metrics</h1>
       <div className="wrapper">
         <div className="deployments">
-        <Deployments/>
+        <Deployments init={false}/>
          <LeadTimes />
          
         </div>
