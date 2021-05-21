@@ -8,15 +8,15 @@ function App() {
   return (
     <React.Fragment>
       <div role="main">
-        <h1 id="application-title">Software Delivery Performance Metrics</h1>
+        <h1 id="application-title" className="heading-text">Software Delivery Performance Metrics</h1>
         <div className ="wrapper">
-          <div role="region" title="Deployments" className='deployments'>
+          <div role="region" title="Deployments" className="deployments">
             <Deployments />
           </div>
-          <div role="region" title="Recovery Times" className='recovery-time'> 
+          <div role="region" title="Recovery Times" className="recovery-time"> 
             <RecoveryTimes /> 
           </div>
-          <div role="region" title="Lead Times" className='lead-time'>
+          <div role="region" title="Lead Times" className="lead-time">
             <LeadTimes />
           </div>
         </div>

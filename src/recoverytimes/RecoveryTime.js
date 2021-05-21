@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import '../global.css';
 
 function RecoveryTimes() {
     const [newStartTime, setNewStartTime] = useState("");
@@ -33,7 +34,7 @@ function RecoveryTimes() {
             <ul role="status">{statuses}</ul>
             <label htmlFor="startTimeInput">Start Time</label><input type="text" onChange={addRecoveryTimeInputHandler} id="startTimeInput"></input>
             <label htmlFor="durationInput">Duration</label><input type="number" onChange={addDurationInputHandler} id="durationInput"></input>
-            <button onClick={addRecoveryTimeButtonHandler}>Add Recovery Time</button>
+            <button onClick={addRecoveryTimeButtonHandler} className="button">Add Recovery Time</button>
         </>
     );
 }
