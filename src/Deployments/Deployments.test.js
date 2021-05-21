@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Deployments from "./Deployments.js";
 
@@ -21,7 +21,7 @@ describe("Deployments", () => {
     expect(date).toHaveTextContent("");
   });
   test("Renders Datetime with value after adding value", () => {
-    render(<Deployments />);
+    render(<Deployments init={true}/>);
     const tempValue = "2021-06-02";
     let date = screen.getByRole("deploymentdate");
     userEvent.type(date, tempValue);
@@ -35,67 +35,32 @@ describe("Deployments", () => {
     expect(addButton).toBeInTheDocument();
   });
 
-  test("Add deployment date", () => {
-    render(<Deployments />);
-    const tempValue = "2021-06-02";
-    const date = screen.getByRole("deploymentdate");
-    userEvent.type(date, tempValue);
-
-    userEvent.click(screen.getByRole("button", { name: "Add Deployment" }));
-    const deployment = screen.getAllByRole("deploymentdate");
-    expect(deployment.length).toEqual(1);
-    expect(deployment[0]).toHaveValue(tempValue);
-  });
 
   test("Add deployment date and time", () => {
-    render(<Deployments />);
-    const tempDate = "2021-06-02";
-    const date = screen.getByRole("deploymentdate");
-    userEvent.type(date, tempDate);
-
-    const tempTime = "13:26";
-    const time = screen.getByRole("deploymenttime");
-    userEvent.type(time, tempTime);
-
-    userEvent.click(screen.getByRole("button", { name: "Add Deployment" }));
-    const deployment = screen.getAllByRole("deployment");
+    render(<Deployments init={true}/>)
+    const tempDate1 = "2021-06-02"; const tempTime1 = "14:26";
+    console.log(localStorage.getItem('deployments'))
+    addDeployment(tempDate1,tempTime1);
+    const deployment = screen.getAllByRole("status");
     expect(deployment.length).toEqual(1);
-    expect(deployment[0]).toHaveTextContent(tempDate + " " + tempTime);
+    expect(deployment[0]).toHaveTextContent(tempDate1 + " " + tempTime1);
   });
 
   test("Add multiple deployment date and time", () => {
-    render(<Deployments />);
-    const tempDate1 = "2021-06-02";
-    const date1 = screen.getByRole("deploymentdate");
-    userEvent.type(date1, tempDate1);
-
-    const tempTime1 = "14:26";
-    const time1 = screen.getByRole("deploymenttime");
-    userEvent.type(time1, tempTime1);
-
-    userEvent.click(screen.getByRole("button", { name: "Add Deployment" }));
-    let deployment = screen.getAllByRole("deployment");
+    render(<Deployments init={true}/>);
+    const tempDate1 = "2021-06-02"; const tempTime1 = "14:26";
+    addDeployment(tempDate1,tempTime1);
+    let deployment = screen.getAllByRole("status");
     expect(deployment.length).toEqual(1);
     expect(deployment[0]).toHaveTextContent(tempDate1 + " " + tempTime1);
 
-    const tempDate2 = "2021-06-03";
-    const date2 = screen.getByRole("deploymentdate");
-    userEvent.type(date2, tempDate2);
-
-    const tempTime2 = "05:26";
-    const time2 = screen.getByRole("deploymenttime");
-    userEvent.type(time2, tempTime2);
-
-    userEvent.click(screen.getByRole("button", { name: "Add Deployment" }));
-    deployment = screen.getAllByRole("deployment");
+    const tempDate2 = "2021-06-03";const tempTime2 = "05:26";
+    addDeployment(tempDate2,tempTime2);
+    deployment = screen.getAllByRole("status");
     expect(deployment.length).toEqual(2);
     expect(deployment[1]).toHaveTextContent(tempDate2 + " " + tempTime2);
   });
-  test("Cannot add deployment with missing date and time", () => {
-    render(<Deployments />);
-
-    //expect(screen.getByRole("button", { name: "Add Deployment" })).toHaveAttribute('disabled');
-  });
+  
 
   test("clicking on button makes it disabled", () => {
     render(<Deployments />);
@@ -104,39 +69,85 @@ describe("Deployments", () => {
     expect(button.disabled).toBeTruthy();
   });
 
-  test("Test deployments visible after refreshing the browser", () => {
-    render(<Deployments />);
-    const tempDate1 = "2021-06-02";
-    const date1 = screen.getByRole("deploymentdate");
-    userEvent.type(date1, tempDate1);
+  function addDeployment(date,time){
+    const dateField = screen.getByRole("deploymentdate");
+    userEvent.type(dateField, date);
 
-    const tempTime1 = "14:26";
-    const time1 = screen.getByRole("deploymenttime");
-    userEvent.type(time1, tempTime1);
+    const timeField = screen.getByRole("deploymenttime");
+    userEvent.type(timeField, time);
 
     userEvent.click(screen.getByRole("button", { name: "Add Deployment" }));
-    let deployment = screen.getAllByRole("deployment");
+  }
+
+  test("Test deployments visible after refreshing the browser", () => {
+    
+    render(<Deployments />);
+    const tempDate1 = "2021-06-02"; const tempTime1 = "14:26";
+    addDeployment(tempDate1,tempTime1);
+    let deployment = screen.getAllByRole("status");
     expect(deployment.length).toEqual(1);
     expect(deployment[0]).toHaveTextContent(tempDate1 + " " + tempTime1);
 
-    const tempDate2 = "2021-06-03";
-    const date2 = screen.getByRole("deploymentdate");
-    userEvent.type(date2, tempDate2);
-
-    const tempTime2 = "05:26";
-    const time2 = screen.getByRole("deploymenttime");
-    userEvent.type(time2, tempTime2);
-
-    userEvent.click(screen.getByRole("button", { name: "Add Deployment" }));
-    deployment = screen.getAllByRole("deployment");
-    expect(deployment.length).toEqual(2);
+    const tempDate2 = "2021-06-03";const tempTime2 = "05:26";
+    addDeployment(tempDate2,tempTime2);
+    deployment = screen.getAllByRole("status");
+    expect(deployment).toHaveLength(2);
     expect(deployment[1]).toHaveTextContent(tempDate2 + " " + tempTime2);
+    console.log(localStorage);
+    cleanup();
+    render(<Deployments/>)
+    console.log(localStorage);
+    deployment = screen.queryAllByRole("status");
+    expect(deployment).toHaveLength(2);
+  });
 
-    const { rerender } = render(<Deployments/>)
-    //window.location.reload();
-    rerender(<Deployments />);
+  test("renders deployment frequency with 0 value", () => {
+    render(<Deployments init={true}/>);
+    const region = screen.getByRole("region");
+    expect(region).toHaveTextContent("Frequency: 0/week");
+  });
+  
+  test("renders deployment frequency with 1 value", () => {
+    
+    render(<Deployments init={true}/>)
+    //Input date of deployment
+    addDeployment("2021-06-02","14:26");
+    const region = screen.getByRole("region");
+    expect(region).toHaveTextContent("Frequency: 1/week");
+  });
 
-    expect(deployment.length).toEqual(2);
+  test("renders deployment frequency with 2 deployments in the same week", () => {
+    
+    render(<Deployments init={true}/>)
+    //Input date of deployment
+    addDeployment("2021-06-02","14:26");
+    addDeployment("2021-06-05","14:26");
+    const region = screen.getByRole("region");
+    expect(region).toHaveTextContent("Frequency: 2/week");
+  });
+
+  test("renders deployment frequency with 2 deployments in the same week and a third deployment in another week", () => {
+    
+    render(<Deployments init={true}/>)
+    //Input date of deployment
+    addDeployment("2021-04-02","14:26");
+    addDeployment("2021-06-05","14:26");
+    addDeployment("2021-06-03","14:26");
+
+    const region = screen.getByRole("region");
+    expect(region).toHaveTextContent("Frequency: 1.5/week");
+  });
+
+  test("renders deployment frequency with 3 deployments in different weeks", () => {
+    
+    render(<Deployments init={true}/>)
+    //Input date of deployment
+    addDeployment("2021-04-02","14:26");
+    addDeployment("2021-06-05","14:26");
+    addDeployment("2021-03-03","14:26");
+
+    const region = screen.getByRole("region");
+    expect(region).toHaveTextContent("Frequency: 1/week");
   });
 
 });
