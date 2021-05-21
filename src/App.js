@@ -1,18 +1,24 @@
 import "./App.css";
 import React from "react";
-import Deployments from "./Deployments/Deployments.js";
-import LeadTimes from "./lead-times/LeadTimes.js";
+import LeadTimes from './leadtimes/LeadTimes.js';
+import RecoveryTimes from './recoverytimes/RecoveryTime.js';
+import Deployments from "./deployments/Deployments.js";
 
 function App() {
   return (
     <React.Fragment>
-      <h1 className="heading-text">Software Delivery Performance Metrics</h1>
-      <div className="wrapper">
-        <div className="deployments">
-          <Deployments />
-        </div>
-        <div className='lead-time'> 
-          <LeadTimes />
+      <div role="main">
+        <h1 id="application-title">Software Delivery Performance Metrics</h1>
+        <div className ="wrapper">
+          <div role="region" title="Deployments" className='deployments'>
+            <Deployments />
+          </div>
+          <div role="region" title="Recovery Times" className='recovery-time'> 
+            <RecoveryTimes /> 
+          </div>
+          <div role="region" title="Lead Times" className='lead-time'>
+            <LeadTimes />
+          </div>
         </div>
       </div>
     </React.Fragment>

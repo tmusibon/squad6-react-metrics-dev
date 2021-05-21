@@ -21,7 +21,7 @@ describe("Deployments", () => {
     expect(date).toHaveTextContent("");
   });
   test("Renders Datetime with value after adding value", () => {
-    render(<Deployments init='true'/>);
+    render(<Deployments init={true}/>);
     const tempValue = "2021-06-02";
     let date = screen.getByRole("deploymentdate");
     userEvent.type(date, tempValue);
@@ -80,8 +80,8 @@ describe("Deployments", () => {
   }
 
   test("Test deployments visible after refreshing the browser", () => {
-    console.log(localStorage);
-    render(<Deployments  init={true}/>);
+    
+    render(<Deployments />);
     const tempDate1 = "2021-06-02"; const tempTime1 = "14:26";
     addDeployment(tempDate1,tempTime1);
     let deployment = screen.getAllByRole("status");
@@ -93,15 +93,16 @@ describe("Deployments", () => {
     deployment = screen.getAllByRole("status");
     expect(deployment).toHaveLength(2);
     expect(deployment[1]).toHaveTextContent(tempDate2 + " " + tempTime2);
-
+    console.log(localStorage);
     cleanup();
     render(<Deployments/>)
+    console.log(localStorage);
     deployment = screen.queryAllByRole("status");
     expect(deployment).toHaveLength(2);
   });
 
   test("renders deployment frequency with 0 value", () => {
-    render(<Deployments />);
+    render(<Deployments init={true}/>);
     const region = screen.getByRole("region");
     expect(region).toHaveTextContent("Frequency: 0/week");
   });
@@ -111,6 +112,40 @@ describe("Deployments", () => {
     render(<Deployments init={true}/>)
     //Input date of deployment
     addDeployment("2021-06-02","14:26");
+    const region = screen.getByRole("region");
+    expect(region).toHaveTextContent("Frequency: 1/week");
+  });
+
+  test("renders deployment frequency with 2 deployments in the same week", () => {
+    
+    render(<Deployments init={true}/>)
+    //Input date of deployment
+    addDeployment("2021-06-02","14:26");
+    addDeployment("2021-06-05","14:26");
+    const region = screen.getByRole("region");
+    expect(region).toHaveTextContent("Frequency: 2/week");
+  });
+
+  test("renders deployment frequency with 2 deployments in the same week and a third deployment in another week", () => {
+    
+    render(<Deployments init={true}/>)
+    //Input date of deployment
+    addDeployment("2021-04-02","14:26");
+    addDeployment("2021-06-05","14:26");
+    addDeployment("2021-06-03","14:26");
+
+    const region = screen.getByRole("region");
+    expect(region).toHaveTextContent("Frequency: 1.5/week");
+  });
+
+  test("renders deployment frequency with 3 deployments in different weeks", () => {
+    
+    render(<Deployments init={true}/>)
+    //Input date of deployment
+    addDeployment("2021-04-02","14:26");
+    addDeployment("2021-06-05","14:26");
+    addDeployment("2021-03-03","14:26");
+
     const region = screen.getByRole("region");
     expect(region).toHaveTextContent("Frequency: 1/week");
   });
