@@ -41,6 +41,11 @@
   grid-row: 1;
 }
 
+.lead-time {
+  grid-column: 1 / 2;
+  grid-row: 2;
+}
+
 .heading-text {
   background-color: gray;
   line-height: 1.5;
