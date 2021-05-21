@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import LeadTimes from "./LeadTimes.js";
 
@@ -14,8 +14,8 @@ describe("LeadTimes", () => {
     render(<LeadTimes />);
     const status = screen.getByRole("status");
 
-    expect(status).toBeInTheDocument(
-      "From code pushed to code deployed: 0 minutes"
+    expect(status).toBeVisible(
+     "From code pushed to code deployed: 0 minutes"
     );
   });
 
@@ -37,30 +37,20 @@ describe("LeadTimes", () => {
     }
   );
 
-  // test.each(["4"])(
-  //   "it should display lead time after refreshing the browser",
-  //   (leadTime) => {
-  //     render(<LeadTimes init={true}/>);
-
-  //     const status = screen.getByRole("status");
-  //     const textbox = screen.getByRole("textbox", { id: "leadTimeInput" });
-  //     const button = screen.getByRole("button", { id: "leadtimeSubmit" });
-  //     userEvent.type(textbox, leadTime);
-  //     userEvent.click(button);
-  //     expect(status).toHaveTextContent(
-  //       "From code pushed to code deployed: "
-  //         .concat(leadTime)
-  //         .concat(" minutes")
-  //     );
-  //     cleanup();
-  //     render(<LeadTimes init={true}/>)
-  //     const lead = screen.toHaveTextContent("From code pushed to code deployed: 4 minutes");
-  //     expect(lead).toBeInTheDocument();
-
-
-  //   }
-  // );
-
+  test("Local storage prints information after refresh", () => {
+    render(<LeadTimes />);
+    const status = screen.getByRole("status");
+    const textbox = screen.getByRole("textbox", { id: "leadTimeInput" });
+    const leadTime = "5"
+    fireEvent.change(textbox, { target: { value: "5" } });
+    userEvent.click(screen.getByRole("button", { name: "Update Lead Time" }));
+    render(<LeadTimes />);
+    expect(status).toHaveTextContent(
+      "From code pushed to code deployed: "
+        .concat(leadTime)
+        .concat(" minutes")
+    );
+  });
   
 
 });
