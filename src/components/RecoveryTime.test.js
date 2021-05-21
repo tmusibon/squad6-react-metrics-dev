@@ -21,21 +21,21 @@ describe("RecoveryTime", () =>{
     test("Recovery times contains the start time input box", () => {
         render(<RecoveryTimes />);
         
-        const startTimesTextBox = screen.getByRole("textbox", {name: "Start Times"});
+        const startTimesTextBox = screen.getByRole("textbox", {name: "Start Time"});
         expect(startTimesTextBox).toBeVisible();
     });
     test("Recovery times contains the duration input box", () => {
         render(<RecoveryTimes />);
         
-        const startTimesTextBox = screen.getByRole("textbox", {name: "Duration"});
+        const startTimesTextBox = screen.getByRole("spinbutton", {name: "Duration"});
         expect(startTimesTextBox).toBeVisible();
     });
     test.each([["1969/01/01","9"],["1997/12/19","57"]])("User submits and expects to see it rendered in the status area", ([time, duration]) => {
         render(<RecoveryTimes />);
-        const status = screen.getByRole("list", {name: "Recovery Times"});
+        const status = screen.getByRole("status");
         const button = screen.getByRole("button", {name: "Add Recovery Time"});
-        const startTimeInput = screen.getByRole("textbox", {name: "Start Times"});
-        const durationInput = screen.getByRole("textbox", {name: "Duration"});
+        const startTimeInput = screen.getByRole("textbox", {name: "Start Time"});
+        const durationInput = screen.getByRole("spinbutton", {name: "Duration"});
 
         userEvent.type(startTimeInput, time);
         userEvent.type(durationInput, duration);
